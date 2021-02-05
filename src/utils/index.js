@@ -4,7 +4,6 @@ export const isFalsy = (value) => (value === 0 ? false : !value);
 
 // 在一个函数里，改变传入的对象本身是不好的
 export const cleanObject = (object) => {
-  console.log('clear Object');
   // Object.assign({}, object) 等价于 {...object}
   const result = { ...object };
   Object.keys(result).forEach((key) => {
@@ -51,17 +50,14 @@ export const useMount = (callback) => {
 //             // 所以，log()#3 结束后，就只剩timeout#3在独自等待了
 
 export const useDebounce = (value, delay) => {
-  console.log('child');
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
-    console.log('child userEffect');
     // 每次在value变化以后，设置一个定时器
     const timeout = setTimeout(() => setDebouncedValue(value), delay);
     // 每次在上一个useEffect处理完以后再运行
     return () => clearTimeout(timeout);
   }, [value, delay]);
 
-  console.log('deboucevalue in child', debouncedValue);
   return debouncedValue;
 };
